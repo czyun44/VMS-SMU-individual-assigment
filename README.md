@@ -1,0 +1,2 @@
+# VMS SMU individual assigment
+ 
