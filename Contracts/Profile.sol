@@ -16,7 +16,7 @@ pragma solidity >=0.8.18;
         //Intitialize owner of contract to yourself
         walletAddress = msg.sender;
         name = _name;
-        email = _email; 
+        email = _email;
         phone = _phone;
     }
 

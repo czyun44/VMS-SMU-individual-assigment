@@ -6,8 +6,13 @@ pragma solidity >=0.8.18;
  * Date: 18/06/2023
  * 
  */
- contract VMS {
+ contract VotingCampaign {
     address contractOwner;
+
+    string public campaignName;
+    string public campaignDescription;
+    uint public campaignStartDateTime;
+    uint public campaignEndDateTime;
 
     struct Voter {
         bool isValid;  // if true, this person is suitable to vote candidate
@@ -28,9 +33,31 @@ pragma solidity >=0.8.18;
     enum State { Initiated, VoteStarted, VoteEnded} State public state;
     string private winner;
 
-    constructor(){
+    constructor(string memory _name, string memory _description, uint _startDateTime, uint _endDateTime){
         //Intitialize owner of contract to yourself
         contractOwner = msg.sender;
+        state = State.Initiated;
+
+        // initial values
+        campaignName = "Voting Campaign";
+        campaignDescription = "This is a voting campaign";
+        campaignStartDateTime = block.timestamp;
+        campaignEndDateTime = block.timestamp + 1 days;
+
+        // Update if applicable
+        if (keccak256(abi.encodePacked((_name))) != keccak256(abi.encodePacked(("")))){
+            campaignName = _name;
+        }
+        if (keccak256(abi.encodePacked((_description))) != keccak256(abi.encodePacked(("")))){
+            campaignDescription = _description;
+        }
+        if (_startDateTime != 0){
+            campaignStartDateTime = _startDateTime;
+        }
+        if (_endDateTime != 0){
+            campaignEndDateTime = _endDateTime;
+        }
+
     }
 
     modifier inState(State _state) {
