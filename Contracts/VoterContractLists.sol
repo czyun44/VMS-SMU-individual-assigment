@@ -8,7 +8,7 @@ pragma solidity >=0.8.18;
  */
 contract voterContractLists {
     address contractOwner;
-    enum VoterStatus { Verification, Approved, Rejected } 
+    enum VoterStatus { Unjoined, Verification, Approved, Rejected } 
     VoterStatus public voter_state;
 
     mapping (address=>VoterStatus) voters;
@@ -33,10 +33,16 @@ contract voterContractLists {
         _;
     }
 
+    //test
+    function voterchange() public 
+    {
+        voters[msg.sender] = VoterStatus.Unjoined;
+    }
+
     function VoterJoin() public
     {
         require(
-            voters[msg.sender] != VoterStatus.Verification,
+            voters[msg.sender] == VoterStatus.Unjoined,
             "You have already been added."
         );
         if (voters[msg.sender] != VoterStatus.Rejected && voters[msg.sender] != VoterStatus.Approved){
