@@ -36,7 +36,7 @@ const CampaignDetail = ({ params }) => {
             await Campaign.addVoters(addVoterAddressfield, { from: WalletAddress }).then(
                 (result) => { 
 //console.log(result) 
-                    alert("Voter added successfully");
+//alert("Voter added successfully");
                     setRefresh(!refresh);
                 }
             );
@@ -53,7 +53,7 @@ const CampaignDetail = ({ params }) => {
             .then(
                 (result) => { 
 //console.log(result) 
-                    alert("Candidate added successfully");
+//alert("Candidate added successfully");
                     setRefresh(!refresh);
                 }
             );
@@ -66,10 +66,10 @@ const CampaignDetail = ({ params }) => {
         const signer = await provider.getSigner();
         const Campaign = await new ethers.Contract(CampaignAddress, campaign.abi, signer);
         try {
-            await Campaign.beginVoting({ from: WalletAddress }).wait().then(
+            await Campaign.beginVoting({ from: WalletAddress }).then(
                 (result) => {
 //console.log(result)
-                    alert("Voting started successfully");
+//alert("Voting started successfully");
                     setRefresh(!refresh);
                 }
             );
@@ -85,7 +85,7 @@ const CampaignDetail = ({ params }) => {
             await Campaign.stopVote({ from: WalletAddress }).then(
                 (result) => {
 //console.log(result)
-                    alert("Voting ended successfully");
+//alert("Voting ended successfully");
                     setRefresh(!refresh);
                 }
             );
@@ -93,9 +93,6 @@ const CampaignDetail = ({ params }) => {
             alert(error.message);
         }
     };
-
-
-
 
     useEffect(() => {
         const getCandidates = async (Campaign) => {

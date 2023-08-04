@@ -33,7 +33,7 @@ const CampaignDetail = ({ params }) => {
         try {
             await Campaign.makeVote(name, { from: WalletAddress }).then(
                 (result) => { 
-                    alert("Vote has been made successfully");
+                    //alert("Vote has been made successfully");
                     setRefresh(!refresh);
                 }
             );
