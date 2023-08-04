@@ -171,7 +171,7 @@ const CampaignDetail = ({ params }) => {
             getVoters(Campaign);
         };
         getDetails();
-    }, [refresh]);
+    }, [refresh, data, CampaignAddress, WalletAddress, provider]);
 
     return (
         <div className="hero min-h-screen bg-base-200 ">
@@ -234,7 +234,7 @@ const CampaignDetail = ({ params }) => {
                                         </thead>
                                         <tbody>
                                             {candidates.map((candidate, index) => (
-                                                <tr>
+                                                <tr key={candidate.name}>
                                                     <th>{index + 1}</th>
                                                     <td>{candidate.name}</td>
                                                     <td>{candidate.voteCount}</td>
@@ -289,7 +289,7 @@ const CampaignDetail = ({ params }) => {
                                         </thead>
                                         <tbody>
                                             {voters.map((voter, index) => (
-                                                <tr>
+                                                <tr key={voter.address}>
                                                     <th>{index + 1}</th>
                                                     <td>{voter.address}</td>
                                                     <td>{voter.voted ? "True" : "Not Voted Yet"}</td>

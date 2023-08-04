@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 const CampaignABI = campaign.abi;
 const CampaignByteCode = campaign.bytecode;
 
-const createCampaign = () => {
+const CreateCampaignPage = () => {
     const router = useRouter();
     const { provider } = useEtherProvider();
     const [parameters, setParameters] = useState({
@@ -92,4 +92,4 @@ const createCampaign = () => {
     );
 };
 
-export default createCampaign;
+export default CreateCampaignPage;

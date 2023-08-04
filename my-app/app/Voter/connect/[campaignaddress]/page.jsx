@@ -129,7 +129,7 @@ const CampaignDetail = ({ params }) => {
             await getVoters(Campaign);
         };
         getDetails();
-    }, [refresh]);
+    }, [refresh, WalletAddress, CampaignAddress, provider, data]);
 
     return (
         <div className="hero min-h-screen bg-base-200 ">
