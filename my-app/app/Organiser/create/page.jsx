@@ -10,7 +10,7 @@ const CampaignByteCode = campaign.bytecode;
 
 const createCampaign = () => {
     const router = useRouter();
-    const {provider} = useEtherProvider();
+    const { provider } = useEtherProvider();
     const [parameters, setParameters] = useState({
         name: '',
         description: '',
@@ -41,7 +41,7 @@ const createCampaign = () => {
     };
 
     return (
-<div className="">
+        <div className="">
             <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
                 <form method="dialog" className="modal-box">
                     <h3 className="font-bold text-lg">{modal.title}</h3>
@@ -64,7 +64,7 @@ const createCampaign = () => {
                                     type="text"
                                     value={parameters.name}
                                     onChange={(event) =>
-                                        setParameters({...parameters, name:event.target.value})
+                                        setParameters({ ...parameters, name: event.target.value })
                                     }
                                     placeholder=""
                                     className="input input-bordered w-full max-w-xs" />
@@ -76,7 +76,7 @@ const createCampaign = () => {
                                     type="text"
                                     value={parameters.description}
                                     onChange={(event) =>
-                                        setParameters({...parameters, description:event.target.value})
+                                        setParameters({ ...parameters, description: event.target.value })
                                     }
                                     placeholder=""
                                     className="input input-bordered w-full max-w-xs" />

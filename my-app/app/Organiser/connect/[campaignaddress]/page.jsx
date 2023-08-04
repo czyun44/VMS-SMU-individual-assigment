@@ -173,11 +173,6 @@ const CampaignDetail = ({ params }) => {
         getDetails();
     }, [refresh]);
 
-
-
-
-
-
     return (
         <div className="hero min-h-screen bg-base-200 ">
             <div className="hero-content align-top">
