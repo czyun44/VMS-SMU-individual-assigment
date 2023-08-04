@@ -6,10 +6,6 @@ import { ethers } from 'ethers';
 import campaign from "../../components/contracts/votingcampaign";
 import { useEtherProvider } from "@/context/provider";
 
-export const metadata = {
-    title: 'Organiser',
-}
-
 const OrganiserPage = () => {
     const router = useRouter();
     const {provider, WalletAddress} = useEtherProvider();
