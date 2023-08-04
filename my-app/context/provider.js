@@ -18,7 +18,6 @@ export function EthersProviders({ children }) {
 
         const initialstartup = async () => {
             await initializeProvider(setProvider, setWalletAddress, setBalance, setNetwork);
-            setRefresh(!refresh);
         };
 
         initialstartup();

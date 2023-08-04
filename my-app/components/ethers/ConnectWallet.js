@@ -8,7 +8,13 @@ export const initializeProvider = async (setProvider, setWalletAddress, setBalan
         // console.info(walletaddress);
         setWalletAddress(await walletaddress[0]);
         const provider = await new ethers.BrowserProvider(window.ethereum);
+        
+    
         setProvider(provider);
+        await window.ethereum.on('accountsChanged', function (accounts) {
+            // console.log(accounts);
+            setWalletAddress(accounts[0]);
+        });
 
         const network = await provider.getNetwork();
         setNetwork(network.chainId == 31337 ? "Localhost":network.name);

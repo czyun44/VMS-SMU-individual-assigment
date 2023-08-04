@@ -21,6 +21,8 @@ pragma solidity >=0.8.18;
     }
 
     mapping(address => Voter) public voters;
+    mapping (uint => address) public voterIndex;
+    uint public totalVoters = 0;
 
     struct Candidate {
         bool isValid; 
@@ -84,6 +86,8 @@ pragma solidity >=0.8.18;
             "The voter has already been added."
         );
         voters[_voter].isValid = true;
+        voterIndex[totalVoters] = _voter;
+        totalVoters++;
     }
 
     function addCandidate(string memory _candidateName) public
@@ -137,6 +141,10 @@ pragma solidity >=0.8.18;
     {
         winnername_ = winner;
         voteCount_ = candidates[winner].voteCount;
+    }
+
+    function isOwner() public view returns(bool){
+        return msg.sender == contractOwner;
     }
     
 }

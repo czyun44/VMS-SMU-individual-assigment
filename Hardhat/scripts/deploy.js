@@ -1,5 +1,31 @@
 const { ethers } = require("hardhat");
 
+async function addCandidate(campaign) {
+    const candidateNameList = ["Bob", "James"]
+    for (let i = 0; i < candidateNameList.length; i++) {
+        await campaign.addCandidate(candidateNameList[i]);
+    }
+    return candidateNameList;
+}
+
+async function addVoter(campaign) {
+    const [owner , ...tempVoterList] = await ethers.getSigners();
+    const voterList = [];
+    for (let i = 0; i < 4; i++) {
+        await campaign.addVoters(tempVoterList[i].address);
+        voterList.push(tempVoterList[i]);
+    }
+    // console.log(voterList);
+    return voterList;
+}
+
+async function vote(campaign, voterList, candidateNameList) {
+    for (let i = 0; i < voterList.length; i++) {
+        const voter = voterList[i];
+        const candidate = candidateNameList[i];
+        await campaign.connect(voter).makeVote(candidate);
+    }
+}
 
 async function deployCampaignContract() {
     const name = "campaign";
@@ -13,6 +39,24 @@ async function deployCampaignContract() {
     const Campaign = await ethers.getContractFactory("votingcampaign");
     const campaign = await Campaign.deploy(name, description, startDateTime, endDateTime);
     await campaign.waitForDeployment();
+    const candidateNameList = await addCandidate(campaign);
+    // const voterList = await addVoter(campaign);
+    // await campaign.beginVoting();
+
+    // // vote first voter
+    // let voter = voterList[0];
+    // let candidate = candidateNameList[0];
+    // await campaign.connect(voter).makeVote(candidate);
+
+    // // vote second voter, 3 votes winner
+    // candidate = candidateNameList[1];
+    // for (let i = 1; i < 4; i++) {
+    //     voter = voterList[i];
+    //     await campaign.connect(voter).makeVote(candidate);
+    // }
+
+    // await campaign.stopVote();
+
     return { campaign, name, description, startDateTime, endDateTime };
 
 }
