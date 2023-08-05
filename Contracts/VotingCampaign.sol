@@ -6,7 +6,7 @@ pragma solidity >=0.8.18;
  * Date: 18/06/2023
  * 
  */
- contract VotingCampaign {
+ contract votingcampaign {
     address contractOwner;
 
     string public campaignName;
@@ -21,10 +21,12 @@ pragma solidity >=0.8.18;
     }
 
     mapping(address => Voter) public voters;
+    mapping (uint => address) public voterIndex;
+    uint public totalVoters = 0;
 
     struct Candidate {
         bool isValid; 
-        uint voteCount;  // if true, that person already voted
+        uint voteCount; // number of accumulated votes
     }
     mapping(string => Candidate) public candidates;
     mapping (uint => string) public candidateIndex;
@@ -84,6 +86,8 @@ pragma solidity >=0.8.18;
             "The voter has already been added."
         );
         voters[_voter].isValid = true;
+        voterIndex[totalVoters] = _voter;
+        totalVoters++;
     }
 
     function addCandidate(string memory _candidateName) public
@@ -132,10 +136,15 @@ pragma solidity >=0.8.18;
     }
     
     function finalwinner() public view
+        inState(State.VoteEnded)
         returns(string memory winnername_, uint voteCount_)
     {
         winnername_ = winner;
         voteCount_ = candidates[winner].voteCount;
+    }
+
+    function isOwner() public view returns(bool){
+        return msg.sender == contractOwner;
     }
     
 }

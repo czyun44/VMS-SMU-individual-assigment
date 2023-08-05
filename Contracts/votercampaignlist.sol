@@ -6,8 +6,8 @@ pragma solidity >=0.8.18;
  * Date: 13/07/2023
  *
  */
-contract voterContractLists {
-    address contractOwner;
+contract votercampaignlist {
+    address public contractOwner;
     enum VoterStatus { Unjoined, Verification, Approved, Rejected } 
     VoterStatus public voter_state;
 
@@ -15,7 +15,7 @@ contract voterContractLists {
     mapping (uint=>address) votersId;
     uint public totalVoters = 0;
 
-    mapping (uint=>address) campaignsId;
+    mapping (uint=>address) public campaignsId;
     uint public totalCampaigns = 0;
 
     constructor(){
@@ -33,11 +33,11 @@ contract voterContractLists {
         _;
     }
 
-    //test
-    function voterchange() public 
-    {
-        voters[msg.sender] = VoterStatus.Unjoined;
-    }
+    // //test
+    // function voterchange() public 
+    // {
+    //     voters[msg.sender] = VoterStatus.Verification;
+    // }
 
     function VoterJoin() public
     {
@@ -47,6 +47,8 @@ contract voterContractLists {
         );
         if (voters[msg.sender] != VoterStatus.Rejected && voters[msg.sender] != VoterStatus.Approved){
             voters[msg.sender] = VoterStatus.Verification;
+            votersId[totalVoters] = msg.sender;
+            totalVoters++;
         } else {
             revert("You have already been approved or rejected.");
         }
@@ -65,11 +67,11 @@ contract voterContractLists {
     function removeVoters(address _voter) public
         onlyOwner 
     {
-        require(
-            voters[_voter] == VoterStatus.Approved,
-            "The voter has already been removed."
-        );
-        voters[_voter] = VoterStatus.Rejected;
+        if (voters[_voter] != VoterStatus.Rejected){
+            voters[_voter] = VoterStatus.Rejected;
+        } else {
+            revert("The voter has already been rejected.");
+        }
     }
 
     function getVoterStatus(address _voter) public view returns (VoterStatus) {

@@ -8,16 +8,14 @@ pragma solidity >=0.8.18;
  */
  contract profile{
     address walletAddress;
-    string name;
-    string email;
-    string phone;
+    string public name;
+    string public email;
     
-    constructor(string memory _name, string memory _email, string memory _phone){
+    constructor(string memory _name, string memory _email){
         //Intitialize owner of contract to yourself
         walletAddress = msg.sender;
         name = _name;
-        email = _email;
-        phone = _phone;
+        email = _email; 
     }
 
     modifier onlyOwner{
@@ -25,12 +23,15 @@ pragma solidity >=0.8.18;
         _;
     }
 
-    function setProfile(string memory _name, string memory _email, string memory _phone) public
+    function setProfile(string memory _name, string memory _email) public
         onlyOwner 
     {
         name = _name;
         email = _email;
-        phone = _phone;
+    }
+
+    function isOwner() public view returns(bool){
+        return msg.sender == walletAddress;
     }
 
     
