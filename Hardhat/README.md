@@ -1,13 +1,19 @@
-# Sample Hardhat Project
+# Hardhat Project
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+Please include a .env file which have your mnemonic/SECRET_RECOVERY backup phase. 
+To learn more: [Hardhat HD Wallet Config](https://hardhat.org/hardhat-runner/docs/config#hd-wallet-config)
+
+This will allow you to use the Metamask or any other Provider. Do not use this on your main account. 
 
 Try running some of the following tasks:
 
 ```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
+// Start the local etheruem network
 npx hardhat node
-npx hardhat run scripts/deploy.js
+
+// Run Test scripts
+npx hardhat test
+
+// Deploy the Campaign contracts and the profile Contracts(for future usage)
+npx hardhat run --network localhost scripts/deploy.js
 ```
